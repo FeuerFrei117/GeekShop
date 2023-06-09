@@ -15,7 +15,7 @@
                 <h1 class="my-4">GeekShop</h1>
                 <div class="list-group">
                     {% for section in catalog %}
-                        <a href="#" class="list-group-item">{{ section }}</a>
+                        <a href="#" class="list-group-item">{{ section.name }}</a>
                     {% endfor %}
                 </div>
 
@@ -60,7 +60,7 @@
                             <div class="card h-100">
                                 <a href="#">
                                     <img class="card-img-top"
-                                         src="{% static product.img %}" alt="">
+                                         src="{{ product.image.url }}" alt="">
                                 </a>
                                 <div class="card-body">
                                     <h4 class="card-title">

@@ -3,6 +3,8 @@ from pathlib import Path
 
 from django.shortcuts import render
 
+from mainapp.models import ProductCategory, Product
+
 BASE_DIR = Path(__file__).resolve().parent
 
 def index(request):
@@ -15,7 +17,7 @@ def index(request):
 def products(request):
     context = {
         'title': 'GeekShop - Каталог',
-        'catalog': ['Новинки', 'Одежда', 'Обувь', 'Аксессуары', 'Подарки'],
-        'products': json.load(open(BASE_DIR / 'fixtures/products.json', encoding='utf-8'))
+        'catalog': ProductCategory.objects.all(),
+        'products': Product.objects.all()
     }
     return render(request, 'mainapp/products.html', context)
