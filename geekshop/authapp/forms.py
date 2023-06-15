@@ -1,8 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django import forms
+from authapp.validator import validate_name
 from authapp.models import User
 
 class UserLoginForm(AuthenticationForm):
+
+    username = forms.CharField(widget=forms.TextInput(),validators=[validate_name])
 
     class Meta:
         model = User
@@ -14,6 +19,12 @@ class UserLoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['placeholder'] = 'Введите пароль'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
+
+    # def clean_username(self):
+    #     data = self.cleaned_data['username']
+    #     if not data.isalpha():
+    #         raise ValidationError(_(f'Имя пользователя не может содержать цифры'), params={'value': data},)
+    #     return data
 
 class UserRegisterForm(UserCreationForm):
 
