@@ -49,7 +49,7 @@ def profile(request):
             form.save()
             messages.success(request, 'Изменения успешно сохранены')
         else:
-            print(form.errors)
+            messages.error(request, form.errors)
     context = {
         'title': 'GeekShop | Профайл',
         'form': UserProfileForm(instance=request.user),
