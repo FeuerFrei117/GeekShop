@@ -47,8 +47,10 @@ def profile(request):
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+            messages.set_level(request, messages.SUCCESS)
             messages.success(request, 'Изменения успешно сохранены')
         else:
+            messages.set_level(request, messages.ERROR)
             messages.error(request, form.errors)
     context = {
         'title': 'GeekShop | Профайл',
